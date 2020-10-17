@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.gkmicro.audiorecorderpro.PlaybackViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".PlaybackFragment">
+
+        <EditText
+            android:id="@+id/filenameEditText"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.filenameText}"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/saveButton"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/ic_save_black_48dp"
+            app:layout_constraintBottom_toBottomOf="@id/filenameEditText"
+            app:layout_constraintStart_toEndOf="@id/filenameEditText" />
+
+        <SeekBar
+            android:id="@+id/playbackSeekBar"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:max="@{viewModel.mediaDurationMilliSecs}"
+            android:progress="@{viewModel.currPosMilliSecs}"
+            app:layout_constraintBottom_toTopOf="@+id/playImageButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/playImageButton"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{viewModel.isPlaying ? @drawable/ic_pause_black_48dp : @drawable/ic_play_arrow_black_48dp}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ffImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fast_forward_black_48dp"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            app:layout_constraintBottom_toBottomOf="@+id/playImageButton"
+            app:layout_constraintStart_toEndOf="@id/playImageButton" />
+
+        <ImageButton
+            android:id="@+id/rwImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fast_rewind_black_48dp"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            app:layout_constraintBottom_toBottomOf="@+id/playImageButton"
+            app:layout_constraintEnd_toStartOf="@+id/playImageButton" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/adView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                style="@style/Widget.AppCompat.Light.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_black_48dp"
+                android:tint="@color/colorAccent" />
+
+            <ImageButton
+                android:id="@+id/shareButton"
+                style="@style/Widget.AppCompat.Light.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_black_48dp" />
+
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3173186601544743/4100813412">
+        </com.google.android.gms.ads.AdView>
+
+        <TextView
+            android:id="@+id/durationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@{viewModel.mediaDurationReadable}"
+            app:layout_constraintBottom_toTopOf="@+id/playbackSeekBar"
+            app:layout_constraintEnd_toEndOf="@+id/playbackSeekBar" />
+
+        <TextView
+            android:id="@+id/currPosTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@{viewModel.currPosReadable}"
+            app:layout_constraintBottom_toTopOf="@+id/playbackSeekBar"
+            app:layout_constraintStart_toStartOf="@+id/playbackSeekBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
